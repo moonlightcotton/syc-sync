@@ -1,0 +1,13 @@
+# Runtime / private data
+browser-profile/
+data/
+logs/
+backups/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# OS noise
+Thumbs.db
+.DS_Store

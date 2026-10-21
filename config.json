@@ -1,0 +1,22 @@
+{
+  "target_list_title": "待办事项列表",
+  "fallback_to_first_list": true,
+  "include_types": ["homework", "exam"],
+  "include_description": true,
+  "description_max_chars": 200,
+  "title_prefix": "",
+  "include_locked": true,
+  "remove_stale": true,
+  "edge_binary": "",
+  "driver_path": "",
+  "profile_dir": "browser-profile",
+  "game_process": "Chill With You.exe",
+  "headless_auto": true,
+  "note_enabled": true,
+  "note_title": "LMS 作业",
+  "note_page_first": true,
+  "remove_empty_default_pages": true,
+  "note_description_max_chars": 2000,
+  "fetch_interval_minutes": 120,
+  "auto_mode": "periodic"
+}
