@@ -241,6 +241,8 @@ def apply_to_game(built: list[dict], config: dict, dry_run: bool = False) -> int
                 log(f"已写入待办：新增 {report['added']}，更新 {report['updated']}，"
                     f"移除 {report['removed']}，当前共 {report['total']} 项。")
                 log(f"备份：{backup}")
+            if report.get("stale_removal_skipped"):
+                log("LMS 待办返回 0 项，已跳过清理已有任务，避免临时空列表误删。")
 
         if config.get("note_enabled", True):
             note_state = note_state_all.setdefault("saves", {}).setdefault(save_dir, {})

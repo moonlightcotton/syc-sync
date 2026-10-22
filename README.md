@@ -131,6 +131,26 @@
 %USERPROFILE%\AppData\LocalLow\nestopi\Chill With You\SaveData\Release\v2\<SteamID>\
 ```
 
+### 数据安全说明
+
+**不会删除：**
+
+- 你手动添加的待办（不在本 Mod 的 `managed` 状态里，不会被清理）；
+- 任何**有内容**的笔记页；其他笔记页只会原样保留，不会被覆盖。
+
+**可能删除或修改：**
+
+- `remove_stale: true`（默认）：只清理**由本 Mod 管理**、且已从 LMS `/api/todos` 消失的**未完成**待办；已完成任务保留。每次写前备份。若 LMS 这次返回 0 项，脚本会跳过清理，避免临时空列表误删。
+- `remove_empty_default_pages: true`（默认）：只删除标题为「新页面 / New Page / Untitled / 空」且正文完全为空的页面；有内容的页面不会动，删除前也会备份。
+- 本 Mod 管理的待办文本/笔记行会按 LMS 最新内容刷新；完成状态保留。
+
+**最保守设置（完全不删任何东西）：**
+
+```json
+"remove_stale": false,
+"remove_empty_default_pages": false
+```
+
 ---
 
 ## 七、常见问题

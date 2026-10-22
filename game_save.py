@@ -155,6 +155,12 @@ def merge_tasks(todo: dict, tasks: list[dict], state: dict,
         }
 
     removed = 0
+    stale_removal_skipped = False
+    if remove_stale and not tasks and managed:
+        # A transient empty /api/todos response must not wipe every managed
+        # task.  The caller can still remove stale tasks manually.
+        remove_stale = False
+        stale_removal_skipped = True
     if remove_stale:
         for uid_str in list(managed.keys()):
             if uid_str in current_ids:
@@ -194,7 +200,8 @@ def merge_tasks(todo: dict, tasks: list[dict], state: dict,
 
     state["last_sync"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return {"added": added, "updated": updated, "removed": removed,
-            "total": len(todo_dic)}
+            "total": len(todo_dic),
+            "stale_removal_skipped": stale_removal_skipped}
 
 
 def backup_file(path: str, backup_dir: str) -> str:
@@ -401,6 +408,8 @@ def merge_notes(save_dir: str, tasks: list[dict], state: dict,
                 order[:] = [x for x in order if int(x) != pid]
             except Exception:
                 pass
+            if backup_dir and os.path.isfile(other["path"]):
+                backup_file(other["path"], backup_dir)
             try:
                 os.remove(other["path"])
             except OSError:
